@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-noir-50: #f6f6f6;
+  --color-noir-100: #e7e7e7;
+  --color-noir-200: #d1d1d1;
+  --color-noir-300: #b0b0b0;
+  --color-noir-400: #888888;
+  --color-noir-500: #6d6d6d;
+  --color-noir-600: #5d5d5d;
+  --color-noir-700: #4f4f4f;
+  --color-noir-800: #2c2c2c;
+  --color-noir-900: #1a1a1a;
+  --color-noir-950: #050505;
+
+  --color-crimson-50: #fef2f3;
+  --color-crimson-100: #fde2e4;
+  --color-crimson-200: #fbcacf;
+  --color-crimson-300: #f7a4ac;
+  --color-crimson-400: #f2727e;
+  --color-crimson-500: #e63e50;
+  --color-crimson-600: #dc0d1c;
+  --color-crimson-700: #b40813;
+  --color-crimson-800: #950b14;
+  --color-crimson-900: #7c0e15;
+  --color-crimson-950: #440306;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-noir-950);
+    color: #f3f4f6;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}

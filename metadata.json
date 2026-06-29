@@ -1,0 +1,8 @@
+{
+  "name": "Cine-Stream",
+  "description": "A polished cinematic movie discovery platform with modern premium dark aesthetics, featuring immediate search and an AI-powered Mood Matcher and favorites library.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
