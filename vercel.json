@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://cine-stream-e2e.onrender.com"
+      "destination": "https://YOUR_RENDER_BACKEND_URL.onrender.com/api/:path*"
     },
     {
       "source": "/(.*)",

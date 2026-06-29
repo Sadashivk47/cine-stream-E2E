@@ -62,20 +62,7 @@ export async function seedDatabase(): Promise<boolean> {
     }
   ];
 
-  const sampleCustomMovies = [
-    {
-      _id: "60c72b2f9b1d8e001c8c221a",
-      title: "Cyber City Odyssey",
-      year: 2026,
-      type: "movie" as const,
-      genres: ["Sci-Fi", "Action"],
-      rating: 8.5,
-      description: "An uploaded QA asset demonstrating Phase 3 Multer + FormData streaming pipeline.",
-      posterUrl: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500&auto=format&fit=crop&q=80",
-      createdByUsername: "sadashiv",
-      createdAt: new Date()
-    }
-  ];
+  const sampleCustomMovies: any[] = [];
 
   if (isUsingMockDb) {
     mockDatabaseStore.users.set("sadashiv", {
@@ -91,8 +78,12 @@ export async function seedDatabase(): Promise<boolean> {
       favorites: sampleFavoritesUser2
     });
 
-    sampleCustomMovies.forEach(cm => {
-      mockDatabaseStore.customMovies.set(cm._id, cm);
+    // Delete any in-memory custom movies matching "Cyber City Odyssey" or "covergenie"
+    Array.from(mockDatabaseStore.customMovies.keys()).forEach((key) => {
+      const cm = mockDatabaseStore.customMovies.get(key);
+      if (cm && (cm.title.toLowerCase().includes("cyber city") || cm.title.toLowerCase().includes("covergenie"))) {
+        mockDatabaseStore.customMovies.delete(key);
+      }
     });
 
     console.log("-> [Seed Script]: Pre-seeded 2 Demo Users (sadashiv / cineware_admin) in In-Memory Store.");
@@ -114,18 +105,19 @@ export async function seedDatabase(): Promise<boolean> {
       // ignore
     }
 
+    // Clean up Cyber City Odyssey and covergenie from MongoDB
     await CustomMovieModel.deleteMany({
       $or: [
         { _id: "60c72b2f9b1d8e001c8c221a" },
         ...(objectIdToRemove ? [{ _id: objectIdToRemove }] : []),
-        { title: "Cyber City Odyssey" },
+        { title: { $regex: /cyber city/i } },
+        { title: { $regex: /covergenie/i } },
         { createdByUsername: "sadashiv" },
         { createdByUsername: "nakul_demo" }
       ]
     });
-    await CustomMovieModel.create(sampleCustomMovies);
 
-    console.log("-> [Seed Script]: Pre-seeded 2 Demo Users (sadashiv / cineware_admin) into MongoDB Atlas.");
+    console.log("-> [Seed Script]: Cleared specified custom movies and pre-seeded 2 Demo Users into MongoDB Atlas.");
     return true;
   } catch (err: any) {
     console.error("-> [Seed Script]: Error seeding MongoDB Atlas:", err.message);
