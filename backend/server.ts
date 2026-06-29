@@ -786,7 +786,7 @@ app.post("/api/mood-matcher", async (req, res) => {
       const fallbackResult = await getFallbackRecommendation(moodLower);
       return res.json({
         ...fallbackResult,
-        isKeyLeaked: true,
+        isKeyLeaked: isLeaked,
         apiError: errMessage
       });
     }
